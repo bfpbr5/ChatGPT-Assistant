@@ -128,7 +128,7 @@ with st.sidebar:
     - 双击页面可直接定位输入栏
     - Ctrl + Enter 可快捷提交问题
     """)
-    st.markdown('<a href="https://github.com/PierXuY/ChatGPT-Assistant" target="_blank" rel="Digital-Aurora-Assistant">'
+    st.markdown('<a href="https://github.com/bfpbr5/ChatGPT-Assistant" target="_blank" rel="Digital-Aurora-Assistant">'
                 '<img src="https://badgen.net/badge/icon/GitHub?icon=github&amp;label=Digital Aurora Assistant" alt="GitHub">'
                 '</a>', unsafe_allow_html=True)
 
