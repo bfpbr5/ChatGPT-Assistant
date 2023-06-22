@@ -8,7 +8,7 @@ from requests.models import ChunkedEncodingError
 from streamlit.components import v1
 from voice_toolkit import voice_toolkit
 
-st.set_page_config(page_title='ChatGPT Assistant', layout='wide', page_icon='🤖')
+st.set_page_config(page_title='Digital Aurora Assistant', layout='wide', page_icon='🤖')
 # 自定义元素样式
 st.markdown(css_code, unsafe_allow_html=True)
 
@@ -128,7 +128,7 @@ with st.sidebar:
     - 双击页面可直接定位输入栏
     - Ctrl + Enter 可快捷提交问题
     """)
-    st.markdown('<a href="https://github.com/PierXuY/ChatGPT-Assistant" target="_blank" rel="ChatGPT-Assistant">'
+    st.markdown('<a href="https://github.com/PierXuY/ChatGPT-Assistant" target="_blank" rel="Digital-Aurora-Assistant">'
                 '<img src="https://badgen.net/badge/icon/GitHub?icon=github&amp;label=ChatGPT Assistant" alt="GitHub">'
                 '</a>', unsafe_allow_html=True)
 
@@ -199,7 +199,7 @@ area_gpt_content = st.empty()
 area_error = st.empty()
 
 st.write("\n")
-st.header('ChatGPT Assistant')
+st.header('Digital Aurora Assistant')
 tap_input, tap_context, tap_model, tab_func = st.tabs(['💬 聊天', '🗒️ 预设', '⚙️ 模型', '🛠️ 功能'])
 
 with tap_context:
