@@ -129,7 +129,7 @@ with st.sidebar:
     - Ctrl + Enter 可快捷提交问题
     """)
     st.markdown('<a href="https://github.com/PierXuY/ChatGPT-Assistant" target="_blank" rel="Digital-Aurora-Assistant">'
-                '<img src="https://badgen.net/badge/icon/GitHub?icon=github&amp;label=ChatGPT Assistant" alt="GitHub">'
+                '<img src="https://badgen.net/badge/icon/GitHub?icon=github&amp;label=Digital Aurora Assistant" alt="GitHub">'
                 '</a>', unsafe_allow_html=True)
 
 # 加载数据
