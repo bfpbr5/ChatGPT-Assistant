@@ -254,6 +254,12 @@ with tap_model:
 
 with tab_func:
     c1, c2, c3 = st.columns(3)
+    with c3:
+        # 创建一个下拉菜单
+        option = st.selectbox(
+            '请选择一个选项',
+            ('word', 'pdf', 'markdown')
+        )
     with c1:
         st.button("清空聊天记录", use_container_width=True, on_click=clear_button_callback)
     with c2:
@@ -264,15 +270,7 @@ with tab_func:
             mime="text/markdown",
             use_container_width=True
         )
-    with c3:
-        # 创建一个下拉菜单
-        option = st.selectbox(
-            '请选择一个选项',
-            ('word', 'pdf', 'markdown')
-        )
-        
-        # 根据用户选择的选项显示相应的结果
-        st.write('你选择了：', option)
+    
     st.write("\n")
     st.markdown("自定义功能：")
     c1, c2 = st.columns(2)
