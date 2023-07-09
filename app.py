@@ -253,10 +253,10 @@ with tap_model:
     st.caption("[官网参数说明](https://platform.openai.com/docs/api-reference/completions/create)")
 
 with tab_func:
-    c1, c2, c3 = st.columns(3)
+    c3, c1, c2 = st.columns(3)
     with c3:
         # 创建一个下拉菜单
-        option = st.selectbox(
+        file_ext = st.selectbox(
             '请选择一个选项',
             ('word', 'pdf', 'markdown')
         )
@@ -266,14 +266,20 @@ with tab_func:
         btn = st.download_button(
             label="导出聊天记录",
             data=download_history(st.session_state['history' + current_chat]),
-            file_name=f'{current_chat.split("_")[0]}.md',
+            if file_ext == 'word':
+                file_ext = 'docx'
+            elif file_ext == 'pdf':
+                file_ext = 'pdf'
+            elif file_ext == 'markdown':
+                file_ext = 'md'
+            file_name=f'{current_chat.split("_")[0]}.{file_ext}',
             mime="text/markdown",
             use_container_width=True
         )
     
     st.write("\n")
     st.markdown("自定义功能：")
-    c1, c2 = st.columns(2)
+    c3, c1, c2 = st.columns(3)
     with c1:
         if "open_text_toolkit_value" in st.session_state:
             default = st.session_state["open_text_toolkit_value"]
