@@ -269,7 +269,13 @@ with tab_func:
         elif file_ext == 'docx':
             mime_str = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         elif file_ext == 'pdf':
+            import PyPDF2
             mime_str = "application/pdf"
+            # 创建一个io.BytesIO对象
+            # 使用PyPDF2库将内容写入到pdf_bytes中
+            pdf_writer = PyPDF2.PdfFileWriter()
+            pdf_writer.addPage(PyPDF2.pdf.PageObject())
+            pdf_writer.write(data_row)
         
         btn = st.download_button(
             label="导出聊天记录",
