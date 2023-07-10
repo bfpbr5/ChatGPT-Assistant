@@ -264,13 +264,13 @@ with tab_func:
         st.button("清空聊天记录", use_container_width=True, on_click=clear_button_callback)
     with c2:
         if file_ext == 'word':
-                file_ext = 'docx'
-            elif file_ext == 'pdf':
-                file_ext = 'pdf'
-            elif file_ext == 'markdown':
-                file_ext = 'md'
-            file_name=f'{current_chat.split("_")[0]}.{file_ext}'
-            mime_str = "text/markdown"
+            file_ext = 'docx'
+        elif file_ext == 'pdf':
+            file_ext = 'pdf'
+        elif file_ext == 'markdown':
+            file_ext = 'md'
+        file_name=f'{current_chat.split("_")[0]}.{file_ext}'
+        mime_str = "text/markdown"
         btn = st.download_button(
             label="导出聊天记录",
             data=download_history(st.session_state['history' + current_chat]),
