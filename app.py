@@ -253,7 +253,7 @@ with tap_model:
     st.caption("[官网参数说明](https://platform.openai.com/docs/api-reference/completions/create)")
 
 with tab_func:
-    c0, c1, c2 = st.columns(2)
+    c0, c1, c2 = st.columns(3)
     file_ext = 'md'
     with c0:
         # 创建一个下拉菜单
@@ -281,7 +281,7 @@ with tab_func:
     
     st.write("\n")
     st.markdown("自定义功能：")
-    c3, c1, c2 = st.columns(3)
+    c1, c2 = st.columns(2)
     with c1:
         if "open_text_toolkit_value" in st.session_state:
             default = st.session_state["open_text_toolkit_value"]
