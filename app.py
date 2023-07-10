@@ -253,7 +253,6 @@ with tap_model:
     st.caption("[官网参数说明](https://platform.openai.com/docs/api-reference/completions/create)")
 
 with tab_func:
-<<<<<<< HEAD
     c0, c1, c2 = st.columns(2)
     file_ext = 'md'
     with c0:
@@ -264,40 +263,17 @@ with tab_func:
         st.button("清空聊天记录", use_container_width=True, on_click=clear_button_callback)
     with c2:
         file_name = f'{current_chat.split("_")[0]}.{file_ext}'
+        data_row = download_history(st.session_state['history' + current_chat])
         if file_ext == 'md':
             mime_str = "text/markdown"
-            # data_row = download_history(st.session_state['history' + current_chat], file_ext)
         elif file_ext == 'docx':
             mime_str = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         elif file_ext == 'pdf':
             mime_str = "application/pdf"
-        data_row = helper.download_history(st.session_state['history' + current_chat], file_ext)
+        
         btn = st.download_button(
             label="导出聊天记录",
             data=data_row,
-=======
-    c3, c1, c2 = st.columns(3)
-    with c3:
-        # 创建一个下拉菜单
-        file_ext = st.selectbox(
-            '请选择一个选项',
-            ('word', 'pdf', 'md')
-        )
-    with c1:
-        st.button("清空聊天记录", use_container_width=True, on_click=clear_button_callback)
-    with c2:
-        if file_ext == 'word':
-            file_ext = 'docx'
-        elif file_ext == 'pdf':
-            file_ext = 'pdf'
-        elif file_ext == 'markdown':
-            file_ext = 'md'
-        file_name=f'{current_chat.split("_")[0]}.{file_ext}'
-        mime_str = "text/markdown"
-        btn = st.download_button(
-            label="导出聊天记录",
-            data=download_history(st.session_state['history' + current_chat]),
->>>>>>> f83a28b317e56b0f294af8b20b6a786efb60c12b
             file_name=file_name,
             mime=mime_str,
             use_container_width=True
