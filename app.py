@@ -7,7 +7,7 @@ import openai
 from requests.models import ChunkedEncodingError
 from streamlit.components import v1
 from voice_toolkit import voice_toolkit
-import pdfkit
+
 
 
 st.set_page_config(page_title='ChatGPT Assistant', layout='wide', page_icon='🤖')
