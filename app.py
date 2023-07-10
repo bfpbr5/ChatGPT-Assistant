@@ -7,8 +7,7 @@ import openai
 from requests.models import ChunkedEncodingError
 from streamlit.components import v1
 from voice_toolkit import voice_toolkit
-
-
+import pdfkit
 
 
 st.set_page_config(page_title='ChatGPT Assistant', layout='wide', page_icon='🤖')
@@ -272,7 +271,7 @@ with tab_func:
         elif file_ext == 'docx':
             mime_str = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         elif file_ext == 'pdf':
-            mime_str = 'application/octet-stream'
+            mime_str = "application/pdf"
         
         btn = st.download_button(
             label="导出聊天记录",
