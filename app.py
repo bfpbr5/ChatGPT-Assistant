@@ -258,22 +258,24 @@ with tab_func:
         # 创建一个下拉菜单
         file_ext = st.selectbox(
             '请选择一个选项',
-            ('word', 'pdf', 'markdown')
+            ('word', 'pdf', 'md')
         )
     with c1:
         st.button("清空聊天记录", use_container_width=True, on_click=clear_button_callback)
     with c2:
-        btn = st.download_button(
-            label="导出聊天记录",
-            data=download_history(st.session_state['history' + current_chat]),
-            if file_ext == 'word':
+        if file_ext == 'word':
                 file_ext = 'docx'
             elif file_ext == 'pdf':
                 file_ext = 'pdf'
             elif file_ext == 'markdown':
                 file_ext = 'md'
+            file_name=f'{current_chat.split("_")[0]}.{file_ext}'
+            mime_str = "text/markdown"
+        btn = st.download_button(
+            label="导出聊天记录",
+            data=download_history(st.session_state['history' + current_chat]),
             file_name=f'{current_chat.split("_")[0]}.{file_ext}',
-            mime="text/markdown",
+            mime=mime_str,
             use_container_width=True
         )
     
