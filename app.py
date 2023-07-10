@@ -274,7 +274,7 @@ with tab_func:
         btn = st.download_button(
             label="导出聊天记录",
             data=download_history(st.session_state['history' + current_chat]),
-            file_name=f'{current_chat.split("_")[0]}.{file_ext}',
+            file_name=file_name,
             mime=mime_str,
             use_container_width=True
         )
