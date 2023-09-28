@@ -7,6 +7,10 @@ import openai
 from requests.models import ChunkedEncodingError
 from streamlit.components import v1
 from voice_toolkit import voice_toolkit
+import promptlayer
+
+promptlayer.api_key = "pl_6693b063dd1e5bc294f4fb3e18820039"
+openai = promptlayer.openai
 
 st.set_page_config(page_title='Digital Aurora Assistant', layout='wide', page_icon='🤖')
 # 自定义元素样式
@@ -375,6 +379,7 @@ if st.session_state['user_input_content'] != '':
                 openai.api_key = st.secrets["apikey"]
             r = openai.ChatCompletion.create(model=st.session_state["select_model"], messages=history_need_input,
                                              stream=True,
+                                             pl_tags = ["sichuan","custom"],
                                              **paras_need_input)
         except (FileNotFoundError, KeyError):
             area_error.error("缺失 OpenAI API Key，请在复制项目后配置Secrets，或者在模型选项中进行临时配置。"
