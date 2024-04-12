@@ -68,6 +68,8 @@ with st.sidebar:
 
 # 数据写入文件
 def write_data(new_chat_name=current_chat):
+    if ("context_input" + current_chat) not in st.session_state:
+        st.session_state["context_input" + current_chat] = ""
     if "apikey" in st.secrets:
         st.session_state["paras"] = {
             "temperature": st.session_state["temperature" + current_chat],
@@ -138,7 +140,7 @@ with st.sidebar:
     st.write("\n")
     st.write("\n")
     st.text_input("设定窗口名称：", key="set_chat_name", placeholder="点击输入")
-    st.selectbox("选择模型：", index=0, options=['gpt-3.5-turbo', 'gpt-4'], key="select_model")
+    st.selectbox("选择模型：", index=0, options=['gpt-3.5-turbo-16k','gpt-4'], key="select_model")
     st.write("\n")
     st.caption("""
     - 双击页面可直接定位输入栏
@@ -216,24 +218,27 @@ area_error = st.empty()
 
 st.write("\n")
 st.header('Digital Aurora Assistant')
-tap_input, tap_context, tap_model, tab_func = st.tabs(['💬 聊天', '🗒️ 预设', '⚙️ 模型', '🛠️ 功能'])
+tap_input, tap_context, tap_model, tab_func = st.tabs(['💬 聊天', '🗒️ 功能', '⚙️ 模型', '🛠️ 管理'])
 
 with tap_context:
     set_context_list = list(set_context_all.keys())
+    set_context_list.pop(0)
+    if st.session_state.get('context_select' + current_chat + "value") == '不设置':
+        st.session_state['context_select' + current_chat + "value"] = '会议纪要生成'
     context_select_index = set_context_list.index(st.session_state['context_select' + current_chat + "value"])
     st.selectbox(
-        label='选择上下文',
+        label='选择功能模块',
         options=set_context_list,
         key='context_select' + current_chat,
         index=context_select_index,
         on_change=callback_fun,
         args=("context_select",))
-    st.caption(set_context_all[st.session_state['context_select' + current_chat]])
+    st.caption("请注意,为了避免您的数据遗失,建议在得到满意的结果后便导出记录,下载到本地")
 
-    st.text_area(
-        label='补充或自定义上下文：', key="context_input" + current_chat,
-        value=st.session_state['context_input' + current_chat + "value"],
-        on_change=callback_fun, args=("context_input",))
+    # st.text_area(
+    #     label='补充或自定义上下文：', key="context_input" + current_chat,
+    #     value=st.session_state['context_input' + current_chat + "value"],
+    #     on_change=callback_fun, args=("context_input",))
 
 with tap_model:
     st.markdown("OpenAI API Key (可选)")
@@ -273,7 +278,7 @@ with tab_func:
     file_ext = 'md'
     with c0:
         # 创建一个下拉菜单
-        file_ext = st.selectbox('请选择文件导出格式',('md', 'docx', 'pdf'))
+        file_ext = st.selectbox('请选择文件导出格式',('md', 'docx'))
         st.write("\n")
     with c1:
         st.button("清空聊天记录", use_container_width=True, on_click=clear_button_callback)
@@ -353,6 +358,8 @@ def get_model_input():
     context_level = st.session_state['context_level' + current_chat]
     history = (get_history_input(st.session_state["history" + current_chat], context_level) +
                [{"role": "user", "content": st.session_state['pre_user_input_content']}])
+    if ("context_input" + current_chat) not in st.session_state:
+        st.session_state["context_input" + current_chat] = ""
     for ctx in [st.session_state['context_input' + current_chat],
                 set_context_all[st.session_state['context_select' + current_chat]]]:
         if ctx != "":
@@ -391,16 +398,14 @@ if st.session_state['user_input_content'] != '':
                 openai.api_key = st.secrets["apikey"]
             r = openai.ChatCompletion.create(model=st.session_state["select_model"], messages=history_need_input,
                                              stream=True,
-                                             pl_tags = ["sichuan","custom"],
                                              **paras_need_input)
         except (FileNotFoundError, KeyError):
-            area_error.error("缺失 OpenAI API Key，请在复制项目后配置Secrets，或者在模型选项中进行临时配置。"
-                             "详情见[项目仓库](https://github.com/PierXuY/ChatGPT-Assistant)。")
+            area_error.error("缺失 OpenAI API Key，请在复制项目后配置Secrets，或者在模型选项中进行临时配置。")
         except openai.error.AuthenticationError:
             area_error.error("无效的 OpenAI API Key。")
         except openai.error.APIConnectionError as e:
             area_error.error("连接超时，请重试。报错：   \n" + str(e.args[0]))
-        except openai.error.InvalidRequestError as e:
+        except openai.error.InvalidRequestError as e:   
             area_error.error("无效的请求，请重试。报错：   \n" + str(e.args[0]))
         except openai.error.RateLimitError as e:
             area_error.error("请求受限。报错：   \n" + str(e.args[0]))

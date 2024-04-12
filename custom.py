@@ -17,19 +17,21 @@ gpt_background_color = 'rgba(225, 230, 235, 0.5)'
 initial_content_all = {
     "history": [],
     "paras": {
-        "temperature": 1.0,
+        "temperature": 0.2,
         "top_p": 1.0,
-        "presence_penalty": 0.0,
-        "frequency_penalty": 0.0,
+        "presence_penalty": 0.2,
+        "frequency_penalty": 0.2,
+        "max_tokens": 4096
     },
     "contexts": {
-        'context_select': '不设置',
+        'context_select': '会议纪要生成',
         'context_input': '',
         'context_level': 4
     }
 }
 # 上下文
 set_context_all = {"不设置": ""}
+# set_context_all = {}
 set_context_all.update(set_context)
 
 # 自定义css、js
